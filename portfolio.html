@@ -1,0 +1,576 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Memon Aafiyan | AI/ML Engineer & Developer</title>
+    <link href="https://fonts.googleapis.com/css2?family=Syncopate:wght@400;700&family=Plus+Jakarta+Sans:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    <style>
+        :root {
+            /* Modern Dark/Neon Theme */
+            --bg-main: #0a0a0a;
+            --bg-secondary: #121212;
+            --text-primary: #f0f0f0;
+            --text-secondary: #a0a0a0;
+            --accent-color: #00ff88; /* Neon Green */
+            --accent-hover: #00cc6a;
+            --card-border: rgba(255, 255, 255, 0.05);
+            --glass-bg: rgba(18, 18, 18, 0.7);
+        }
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Plus Jakarta Sans', sans-serif;
+            background-color: var(--bg-main);
+            color: var(--text-primary);
+            line-height: 1.6;
+            overflow-x: hidden;
+            scroll-behavior: smooth;
+        }
+
+        h1, h2, h3, h4, .syncopate {
+            font-family: 'Syncopate', sans-serif;
+            text-transform: uppercase;
+        }
+
+        a {
+            text-decoration: none;
+            color: var(--accent-color);
+            transition: 0.3s ease;
+        }
+
+        a:hover {
+            color: var(--accent-hover);
+            text-shadow: 0 0 10px rgba(0, 255, 136, 0.5);
+        }
+
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 0 5%;
+        }
+
+        /* Initial Loader / Intro Text */
+        #intro-overlay {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100vw;
+            height: 100vh;
+            background-color: var(--bg-main);
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            z-index: 9999;
+            animation: slideUpOut 1.5s cubic-bezier(0.77, 0, 0.175, 1) 2.5s forwards;
+        }
+
+        .intro-text {
+            font-size: clamp(2rem, 5vw, 4rem);
+            font-weight: 700;
+            letter-spacing: 5px;
+            color: transparent;
+            -webkit-text-stroke: 1px var(--text-secondary);
+            background: linear-gradient(90deg, var(--accent-color) 0%, var(--accent-color) 100%);
+            background-clip: text;
+            -webkit-background-clip: text;
+            background-repeat: no-repeat;
+            background-size: 0% 100%;
+            animation: fillText 2s ease forwards 0.5s;
+        }
+
+        @keyframes fillText {
+            to { background-size: 100% 100%; -webkit-text-stroke: 0; color: var(--accent-color); }
+        }
+
+        @keyframes slideUpOut {
+            to { transform: translateY(-100%); display: none; }
+        }
+
+        /* Hero Section */
+        .hero {
+            height: 100vh;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            position: relative;
+        }
+
+        .hero h1 {
+            font-size: clamp(3rem, 8vw, 7rem);
+            line-height: 1.1;
+            letter-spacing: -2px;
+            margin-bottom: 20px;
+            background: linear-gradient(135deg, #fff 0%, #777 100%);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+        }
+
+        .hero p.role {
+            font-size: clamp(1rem, 2vw, 1.5rem);
+            color: var(--text-secondary);
+            letter-spacing: 2px;
+            margin-bottom: 40px;
+            font-weight: 300;
+        }
+
+        .contact-chips {
+            display: flex;
+            gap: 15px;
+            flex-wrap: wrap;
+            opacity: 0;
+            animation: fadeIn 1s ease forwards 3.5s;
+        }
+
+        .chip {
+            padding: 10px 20px;
+            border: 1px solid var(--card-border);
+            border-radius: 50px;
+            font-size: 0.9rem;
+            backdrop-filter: blur(10px);
+            background: rgba(255, 255, 255, 0.03);
+            transition: 0.3s;
+        }
+
+        .chip:hover {
+            border-color: var(--accent-color);
+            background: rgba(0, 255, 136, 0.05);
+        }
+
+        /* Scroll Indicator */
+        .scroll-indicator {
+            position: absolute;
+            bottom: 40px;
+            left: 5%;
+            font-size: 0.8rem;
+            letter-spacing: 3px;
+            color: var(--text-secondary);
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            opacity: 0;
+            animation: fadeIn 1s ease forwards 4s;
+        }
+
+        .scroll-indicator::after {
+            content: '';
+            width: 50px;
+            height: 1px;
+            background: var(--text-secondary);
+            animation: scrollLine 2s infinite ease-in-out;
+        }
+
+        @keyframes scrollLine {
+            0% { transform: scaleX(0); transform-origin: left; }
+            50% { transform: scaleX(1); transform-origin: left; }
+            50.1% { transform: scaleX(1); transform-origin: right; }
+            100% { transform: scaleX(0); transform-origin: right; }
+        }
+
+        @keyframes fadeIn {
+            to { opacity: 1; }
+        }
+
+        /* Reveal Animation Classes */
+        .reveal {
+            opacity: 0;
+            transform: translateY(50px);
+            transition: all 0.8s cubic-bezier(0.5, 0, 0, 1);
+        }
+
+        .reveal.active {
+            opacity: 1;
+            transform: translateY(0);
+        }
+
+        /* General Sections */
+        section {
+            padding: 120px 0;
+        }
+
+        .section-title {
+            font-size: 2.5rem;
+            color: var(--text-secondary);
+            margin-bottom: 60px;
+            display: flex;
+            align-items: center;
+            gap: 20px;
+        }
+
+        .section-title::before {
+            content: '';
+            width: 60px;
+            height: 2px;
+            background-color: var(--accent-color);
+        }
+
+        /* Grid Layouts */
+        .grid-2 {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 40px;
+        }
+
+        .grid-3 {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 30px;
+        }
+
+        /* Modern Cards */
+        .card {
+            background: var(--bg-secondary);
+            padding: 40px;
+            border-radius: 16px;
+            border: 1px solid var(--card-border);
+            position: relative;
+            overflow: hidden;
+            transition: 0.4s;
+            z-index: 1;
+        }
+
+        .card::before {
+            content: '';
+            position: absolute;
+            top: 0; left: 0; width: 100%; height: 100%;
+            background: radial-gradient(circle at top right, rgba(0, 255, 136, 0.1), transparent 50%);
+            opacity: 0;
+            transition: 0.4s;
+            z-index: -1;
+        }
+
+        .card:hover {
+            transform: translateY(-10px);
+            border-color: rgba(0, 255, 136, 0.3);
+            box-shadow: 0 20px 40px rgba(0,0,0,0.5);
+        }
+
+        .card:hover::before {
+            opacity: 1;
+        }
+
+        .card h3 {
+            font-size: 1.5rem;
+            color: #fff;
+            margin-bottom: 10px;
+            letter-spacing: 1px;
+        }
+
+        .card .meta {
+            font-size: 0.9rem;
+            color: var(--accent-color);
+            margin-bottom: 20px;
+            font-weight: 500;
+        }
+
+        .card ul {
+            padding-left: 20px;
+            color: var(--text-secondary);
+        }
+
+        .card ul li {
+            margin-bottom: 10px;
+        }
+
+        /* Tech Tags */
+        .tags {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 10px;
+            margin-top: 25px;
+        }
+
+        .tag {
+            background: rgba(255, 255, 255, 0.05);
+            color: var(--text-primary);
+            padding: 5px 15px;
+            border-radius: 4px;
+            font-size: 0.8rem;
+            border: 1px solid var(--card-border);
+        }
+
+        /* Timeline / Education */
+        .edu-item {
+            display: flex;
+            flex-direction: column;
+            gap: 5px;
+            padding: 25px;
+            border-left: 2px solid var(--card-border);
+            position: relative;
+            transition: 0.3s;
+        }
+
+        .edu-item::before {
+            content: '';
+            position: absolute;
+            left: -6px;
+            top: 30px;
+            width: 10px;
+            height: 10px;
+            border-radius: 50%;
+            background: var(--text-secondary);
+            transition: 0.3s;
+        }
+
+        .edu-item:hover {
+            border-left-color: var(--accent-color);
+        }
+
+        .edu-item:hover::before {
+            background: var(--accent-color);
+            box-shadow: 0 0 10px var(--accent-color);
+        }
+        
+        .edu-item h4 {
+            color: #fff;
+            font-size: 1.2rem;
+            letter-spacing: 1px;
+        }
+        
+        .edu-item .date {
+            color: var(--accent-color);
+            font-size: 0.85rem;
+            font-weight: 600;
+        }
+
+        .edu-item .institute {
+            color: var(--text-secondary);
+        }
+
+        .edu-item .score {
+            margin-top: 10px;
+            font-weight: 600;
+            background: rgba(255,255,255,0.05);
+            display: inline-block;
+            padding: 4px 12px;
+            border-radius: 4px;
+        }
+
+        footer {
+            text-align: center;
+            padding: 40px;
+            border-top: 1px solid var(--card-border);
+            color: var(--text-secondary);
+            font-size: 0.9rem;
+        }
+
+        @media (max-width: 768px) {
+            .grid-2 { grid-template-columns: 1fr; }
+            .section-title { font-size: 2rem; }
+        }
+    </style>
+</head>
+<body>
+
+<!-- Intro Animation -->
+<div id="intro-overlay">
+    <div class="intro-text syncopate">MEMON AAFIYAN</div>
+</div>
+
+<div class="container">
+    <!-- Hero Section -->
+    <section class="hero">
+        <h1 class="reveal">MEMON<br>AAFIYAN</h1>
+        <p class="role syncopate reveal">Junior AI/ML Engineer | Full-Stack Web Developer</p>
+        
+        <div class="contact-chips">
+            <div class="chip">📍 Ahmedabad, Gujarat</div>
+            <div class="chip">✉️ <a href="mailto:memonaafiyan01@gmail.com">memonaafiyan01@gmail.com</a></div>
+            <div class="chip">📞 +91 7874455980</div>
+            <div class="chip">🔗 <a href="https://github.com/memonaafiyan" target="_blank">GitHub</a></div>
+            <div class="chip">🔗 <a href="https://www.linkedin.com/in/aafiyan-memon-910731208" target="_blank">LinkedIn</a></div>
+        </div>
+
+        <div class="scroll-indicator syncopate">SCROLL TO EXPLORE</div>
+    </section>
+
+    <!-- About Section -->
+    <section id="about">
+        <h2 class="section-title reveal">About Me</h2>
+        <div class="card reveal" style="max-width: 1000px; font-size: 1.1rem; color: var(--text-secondary);">
+            <p>I am a dedicated software engineer specializing in Python-driven backend systems, artificial intelligence, and full-stack web development. With a Master of Computer Applications (MCA) and hands-on industry experience, I build systems that are intelligent, highly optimized, and tailored for real-world business logic. My expertise ranges from engineering complex Django architectures to developing machine learning predictive models, with a strong focus on emerging technologies.</p>
+        </div>
+    </section>
+
+    <!-- Experience Section -->
+    <section id="experience">
+        <h2 class="section-title reveal">Experience</h2>
+        <div class="card reveal">
+            <h3 class="syncopate">Webify.ai Technologies</h3>
+            <p style="color: var(--text-secondary); margin-bottom: 30px;">Ahmedabad, Gujarat</p>
+            
+            <div style="margin-bottom: 40px;">
+                <h4 style="font-size: 1.2rem; color: #fff; margin-bottom: 5px;">Junior AI/ML Engineer</h4>
+                <div class="meta">8 Months</div>
+                <ul>
+                    <li>Engineered and optimized backend systems leveraging Python, focusing on data processing and intelligent model integration.</li>
+                    <li>Collaborated on bridging machine learning capabilities with robust web frameworks to create scalable, smart applications.</li>
+                    <li>Maintained and scaled production-level codebases, ensuring seamless data flow between the backend architecture and frontend interfaces.</li>
+                </ul>
+            </div>
+
+            <div>
+                <h4 style="font-size: 1.2rem; color: #fff; margin-bottom: 5px;">Software Engineering Intern</h4>
+                <div class="meta">6 Months</div>
+                <ul>
+                    <li>Spearheaded web application development utilizing Python and Django, establishing a strong foundation in MVC architecture and secure backend routing.</li>
+                    <li>Configured local IP networking, managed environment variables for local testing, and updated host permissions for mobile browser testing.</li>
+                    <li>Assisted in drafting system requirements and technical documentation for ongoing enterprise projects.</li>
+                </ul>
+            </div>
+        </div>
+    </section>
+
+    <!-- Projects Section -->
+    <section id="projects">
+        <h2 class="section-title reveal">Featured Work</h2>
+        <div class="grid-2">
+            
+            <div class="card reveal">
+                <h3>STOCK MAKER</h3>
+                <div class="meta">Enterprise Inventory System</div>
+                <p style="color: var(--text-secondary); margin-bottom: 15px;">A comprehensive B2B software solution built from scratch for SMEs to manage end-to-end operations dynamically.</p>
+                <ul>
+                    <li><strong>Financial Tracking:</strong> Calculates monthly purchases, sales, and profit margins.</li>
+                    <li><strong>Automated Reports:</strong> Generates downloadable Excel reports for full financial years.</li>
+                    <li><strong>Billing & Service:</strong> Built-in automated billing and repair job sheet generation.</li>
+                    <li><strong>Customer Management:</strong> Separate PDF purchase entries and transaction histories per customer.</li>
+                </ul>
+                <div class="tags">
+                    <span class="tag">Python</span>
+                    <span class="tag">Django</span>
+                    <span class="tag">JavaScript</span>
+                    <span class="tag">HTML/CSS</span>
+                </div>
+            </div>
+
+            <div class="card reveal">
+                <h3>PRICE PREDICTOR</h3>
+                <div class="meta">Real Estate ML Model | Feb 25 – Apr 25</div>
+                <p style="color: var(--text-secondary); margin-bottom: 15px;">Developed a highly accurate linear regression machine learning model to forecast real estate property prices.</p>
+                <p style="color: var(--text-secondary);">Conducted extensive exploratory data analysis to identify and isolate key price drivers, significantly improving prediction accuracy.</p>
+                <div class="tags">
+                    <span class="tag">Python</span>
+                    <span class="tag">NumPy</span>
+                    <span class="tag">Pandas</span>
+                    <span class="tag">Seaborn</span>
+                </div>
+            </div>
+
+            <div class="card reveal" style="grid-column: 1 / -1; max-width: 600px; margin: 0 auto;">
+                <h3>INTERIOR DESIGN SYS</h3>
+                <div class="meta">Web Platform | Dec 23 – Apr 24</div>
+                <p style="color: var(--text-secondary); margin-bottom: 15px;">Engineered a dynamic web-based platform empowering users to create, configure, and visualize interior design layouts.</p>
+                <p style="color: var(--text-secondary);">Built a secure backend with Django and SQLite, coupled with a responsive, user-friendly frontend.</p>
+                <div class="tags">
+                    <span class="tag">Python</span>
+                    <span class="tag">Django</span>
+                    <span class="tag">SQLite</span>
+                </div>
+            </div>
+            
+        </div>
+    </section>
+
+    <!-- Education Section -->
+    <section id="education">
+        <h2 class="section-title reveal">Education</h2>
+        <div class="grid-2">
+            <div>
+                <div class="edu-item reveal">
+                    <h4>Master of Computer Applications (MCA)</h4>
+                    <div class="date">Aug 2024 - May 2026</div>
+                    <div class="institute">Chimanbhai Patel Post Graduate Institute of Computer Applications</div>
+                    <div class="score">CGPA: 7.2</div>
+                </div>
+                <div class="edu-item reveal">
+                    <h4>Bachelor of Computer Applications (BCA)</h4>
+                    <div class="date">Sep 2021 - May 2024</div>
+                    <div class="institute">C U Shah Institute Of Computer Application</div>
+                    <div class="score">CGPA: 6.1</div>
+                </div>
+            </div>
+            <div>
+                <div class="edu-item reveal">
+                    <h4>12th (Higher Secondary)</h4>
+                    <div class="date">Apr 2020 - Mar 2021</div>
+                    <div class="institute">Gayatri Vidhyalaya, Ahmedabad</div>
+                    <div class="score">Percentage: 60%</div>
+                </div>
+                <div class="edu-item reveal">
+                    <h4>10th (Secondary School)</h4>
+                    <div class="date">Apr 2018 - Mar 2019</div>
+                    <div class="institute">Gayatri Vidhyalaya, Ahmedabad</div>
+                    <div class="score">Percentage: 60%</div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Skills Section -->
+    <section id="skills">
+        <h2 class="section-title reveal">Tech Arsenal</h2>
+        <div class="grid-3">
+            <div class="card reveal">
+                <h3 style="color: var(--accent-color); font-size: 1.2rem;">Languages</h3>
+                <p style="color: var(--text-secondary); margin-top: 15px;">Python, Java, C, JavaScript</p>
+            </div>
+            <div class="card reveal">
+                <h3 style="color: var(--accent-color); font-size: 1.2rem;">Web Tech</h3>
+                <p style="color: var(--text-secondary); margin-top: 15px;">HTML, CSS, Bootstrap, Django</p>
+            </div>
+            <div class="card reveal">
+                <h3 style="color: var(--accent-color); font-size: 1.2rem;">Data Science & ML</h3>
+                <p style="color: var(--text-secondary); margin-top: 15px;">NumPy, Pandas, Seaborn, Matplotlib, Regex</p>
+            </div>
+            <div class="card reveal">
+                <h3 style="color: var(--accent-color); font-size: 1.2rem;">Tools & DB</h3>
+                <p style="color: var(--text-secondary); margin-top: 15px;">GitHub, VS Code, SQLite, DBMS</p>
+            </div>
+        </div>
+    </section>
+
+</div>
+
+<footer>
+    <p>&copy; 2026 Memon Aafiyan. Architecting the future.</p>
+</footer>
+
+<script>
+    // Scroll Reveal Animation Logic
+    document.addEventListener("DOMContentLoaded", () => {
+        const reveals = document.querySelectorAll(".reveal");
+
+        // Initial trigger for elements already in viewport on load
+        setTimeout(() => {
+            reveals.forEach(reveal => {
+                const windowHeight = window.innerHeight;
+                const elementTop = reveal.getBoundingClientRect().top;
+                if (elementTop < windowHeight) {
+                    reveal.classList.add("active");
+                }
+            });
+        }, 3000); // wait for intro animation
+
+        // Trigger on scroll
+        window.addEventListener("scroll", () => {
+            const windowHeight = window.innerHeight;
+            const elementVisible = 100; // pixels before revealing
+
+            reveals.forEach(reveal => {
+                const elementTop = reveal.getBoundingClientRect().top;
+                if (elementTop < windowHeight - elementVisible) {
+                    reveal.classList.add("active");
+                }
+            });
+        });
+    });
+</script>
+
+</body>
+</html>
